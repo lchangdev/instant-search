@@ -1,63 +1,72 @@
+var app = angular.module("instantSearch", []);
+  // Module is where we want to write our Angular application
+  // Makes code more maintainable, testable and readable
+  // Where we define dependencies in our app.
+  // Must create a module before creating a custom filter
 
-  // immediately invoked function expression
-  var app = angular.module("instantSearch", []);
+app.filter("searchFor", function(){
+  // All filters must return a function
+  // First parameter is the data that is to be filtered
+  // Second parameter is an argument that may be passed with a
+    // colon (searchFor:searchString)
 
-  app.filter("searchFor", function(){
+  return function(arr, searchString){
+    if (!searchString){
+      return arr;
+    }
 
-    return function(arr, searchString){
-      if (!searchString){
-        return arr;
+    var results = [];
+    searchString = searchString.toLowerCase();
+
+    angular.forEach(arr, function(item){
+      if (item.title.toLowerCase().indexOf(searchString) !== -1){
+        // indexOf() method returns -1 if the value of the search
+          // never occurs.
+        // conditional if result is found push item to results array
+        results.push(item);
       }
+    });
+    return results;
+  };
+});
 
-      var results = [];
-      searchString = searchString.toLowerCase();
-
-      angular.forEach(arr, function(item){
-        if (item.title.toLowerCase().indexOf(searchString) !== -1){
-          results.push(item);
-        }
-      });
-      return results;
-    };
-  });
-
-  function InstantSearchController($scope){
-    $scope.items = [
-      {
-        url: 'http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/',
-        title: '50 Must-have plugins for extending Twitter Bootstrap',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/07/featured_4-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/08/simple-registration-system-php-mysql/',
-        title: 'Making a Super Simple Registration System With PHP and MySQL',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/simple_registration_system-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/08/slideout-footer-css/',
-        title: 'Create a slide-out footer with this neat z-index trick',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/slide-out-footer-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/06/digital-clock/',
-        title: 'How to Make a Digital Clock with jQuery and CSS3',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/06/digital_clock-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/05/diagonal-fade-gallery/',
-        title: 'Smooth Diagonal Fade Gallery with CSS3 Transitions',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/featured-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/',
-        title: 'Mini AJAX File Upload Form',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/ajax-file-upload-form-100x100.jpg'
-      },
-      {
-        url: 'http://tutorialzine.com/2013/04/services-chooser-backbone-js/',
-        title: 'Your First Backbone.js App – Service Chooser',
-        image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/04/service_chooser_form-100x100.jpg'
-      }
-    ];
-  }
-
+function InstantSearchController($scope){
+  $scope.items = [
+    // set values for items property
+    {
+      url: 'http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/',
+      title: '50 Must-have plugins for extending Twitter Bootstrap',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/07/featured_4-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/08/simple-registration-system-php-mysql/',
+      title: 'Making a Super Simple Registration System With PHP and MySQL',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/simple_registration_system-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/08/slideout-footer-css/',
+      title: 'Create a slide-out footer with this neat z-index trick',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/slide-out-footer-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/06/digital-clock/',
+      title: 'How to Make a Digital Clock with jQuery and CSS3',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/06/digital_clock-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/05/diagonal-fade-gallery/',
+      title: 'Smooth Diagonal Fade Gallery with CSS3 Transitions',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/featured-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/',
+      title: 'Mini AJAX File Upload Form',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/ajax-file-upload-form-100x100.jpg'
+    },
+    {
+      url: 'http://tutorialzine.com/2013/04/services-chooser-backbone-js/',
+      title: 'Your First Backbone.js App – Service Chooser',
+      image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/04/service_chooser_form-100x100.jpg'
+    }
+  ];
+}

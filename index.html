@@ -6,13 +6,16 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body ng-app="instantSearch" ng-controller="InstantSearchController">
+    <!-- nitialize angular, attach InstantSearchController class to view -->
 
     <div class="bar">
       <input type="text" ng-model="searchString" placeholder="Enter search here" />
+        <!-- ng-model directive bind searchString to $scope of controller -->
     </div>
 
     <ul>
       <li ng-repeat="item in items | searchFor:searchString">
+        <!-- custom filter searchFor defined in controller -->
         <a href="{{item.url}}"><img ng-src="{{item.image}}"/></a>
         <p>{{item.title}}</p>
       </li>
