@@ -5,7 +5,18 @@
     <title>Instant Search</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
-  <body>
+  <body ng-app="instantSearch" ng-controller="InstantSearchController">
+
+    <div class="bar">
+      <input type="text" ng-model="searchString" placeholder="Enter search here" />
+    </div>
+
+    <ul>
+      <li ng-repeat="item in items | searchFor:searchString">
+        <a href="{{item.url}}"><img ng-src="{{item.image}}"/></a>
+        <p>{{item.title}}</p>
+      </li>
+    </ul>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="script.js"></script>
